@@ -1,0 +1,3 @@
+rootProject.name = "jetpack_wanandroid"
+include ':app'
+include ':base'

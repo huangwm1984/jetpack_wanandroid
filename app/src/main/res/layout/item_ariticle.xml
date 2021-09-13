@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="article"
+            type="com.android.jetpack_mvvm.bean.Article" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_home_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{article.author.length()>0?article.author:article.shareUser}"
+                    android:textColor="@color/colorBlack666"
+                    android:textSize="13dp"
+                    tools:text="风云之雄霸天下" />
+
+                <TextView
+                    android:id="@+id/item_home_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/title_lable_shap1"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="10dp"
+                    android:text="置顶"
+                    setViewGone="@{article.type!=1}"/>
+
+                <TextView
+                    android:id="@+id/item_home_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/title_lable_shap1"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="10dp"
+                    android:text="新"
+                    setViewGone="@{!article.fresh}" />
+
+                <TextView
+                    android:id="@+id/item_home_type1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/title_lable_shap2"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="10dp"
+                    android:text="@{article.tags[0].name}"
+                    setViewGone="@{article.tags.size()>0?false:true}"
+                    tools:text="问答" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/item_home_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/colorBlack666"
+                    android:textSize="13dp"
+                    android:text="@{article.type==1?article.niceShareDate:article.niceDate}"
+                    tools:text="1小时前" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_home_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="8dp"
+                tools:text="这是一个根据JetpackMvvm框架开发玩Android的一个APP"
+                formatHtml="@{article.title}"
+                android:textColor="@color/colorBlack333"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_home_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    formatHtml='@{article.superChapterName.equals(article.chapterName)?article.superChapterName:article.superChapterName+"-"+article.chapterName}'
+                    android:textColor="@color/colorBlack666"
+                    android:textSize="13dp"
+                    tools:text="分类-项目" />
+
+    <!--            <me.hgj.jetpackmvvm.demo.app.weight.customview.CollectView-->
+    <!--                android:id="@+id/item_home_collect"-->
+    <!--                android:layout_width="24dp"-->
+    <!--                android:layout_height="24dp"-->
+    <!--                android:layout_alignParentEnd="true"-->
+    <!--                android:layout_centerVertical="true"-->
+    <!--                android:layout_marginEnd="8dp" />-->
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
