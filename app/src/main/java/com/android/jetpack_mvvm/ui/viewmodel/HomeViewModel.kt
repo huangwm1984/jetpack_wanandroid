@@ -39,10 +39,10 @@ class HomeViewModel: ViewModel() {
 
     /**
      * 获取首页文章列表数据
-     * @param isFirstPage 是否是刷新，即第一页
+     * @param isRefresh 是否是刷新，即第一页
      */
-    fun getHomeData(isFirstPage: Boolean) {
-        if (isFirstPage) {
+    fun getHomeData(isRefresh: Boolean) {
+        if (isRefresh) {
             pageNo = 0
         }
         request({ getHomeData(pageNo) }, {
@@ -50,10 +50,10 @@ class HomeViewModel: ViewModel() {
             pageNo++
             var listData = CommonListData(
                 isSuccess = true,
-                isFirst = isFirstPage,
+                isRefresh = isRefresh,
                 isEmpty = it.isEmpty(),
                 hasMore = it.hasMore(),
-                isFirstEmpty = isFirstPage && it.isEmpty(),
+                isFirstEmpty = isRefresh && it.isEmpty(),
                 datas = it.datas
             )
             homeData.postValue(listData)
@@ -61,7 +61,7 @@ class HomeViewModel: ViewModel() {
             //请求失败
             val listData = CommonListData(
                 isSuccess = false,
-                isFirst = isFirstPage,
+                isRefresh = isRefresh,
                 errMessage = it.message.toString(),
                 datas = arrayListOf<Article>()
             )

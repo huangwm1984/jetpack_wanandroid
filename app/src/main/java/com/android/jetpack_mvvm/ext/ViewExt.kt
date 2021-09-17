@@ -24,7 +24,7 @@ fun ViewPager2.init(fragment: Fragment): ViewPager2 {
                     return ProjectFragment()
                 }
                 2 -> {
-                    return SquareFragment()
+                    return AggregationFragment()
                 }
                 3 -> {
                     return PublicFragment()

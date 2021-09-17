@@ -6,7 +6,7 @@ data class CommonListData<T>(
     //错误消息 isSuccess为false才会有
     val errMessage: String = "",
     //是否为第一页
-    val isFirst: Boolean = false,
+    val isRefresh: Boolean = false,
     //是否为空
     val isEmpty: Boolean = false,
     //是否还有更多

@@ -14,7 +14,7 @@
     <item
         android:id="@+id/menu_system"
         android:icon="@drawable/menu_tree"
-        android:title="@string/bottom_menu_square" />
+        android:title="@string/bottom_menu_aggregation" />
     <item
         android:id="@+id/menu_public"
         android:icon="@drawable/menu_public"

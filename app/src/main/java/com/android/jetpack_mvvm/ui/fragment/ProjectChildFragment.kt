@@ -63,35 +63,7 @@ class ProjectChildFragment : BaseFragment<ProjectViewModel, FragmentProjectChild
     override fun initObserver() {
         viewModel.run {
             projectData.observe(viewLifecycleOwner, Observer {
-                swipeRefresh.isRefreshing = false
-                recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
-                if (it.isSuccess) {
-                    //成功
-                    when {
-                        //第一页并没有数据 显示空布局界面
-                        it.isFirstEmpty -> {
-                            loadsir.showEmpty()
-                        }
-                        //是第一页
-                        it.isFirst -> {
-                            articleAdapter.items = it.datas
-                            loadsir.showSuccess()
-                        }
-                        //不是第一页
-                        else -> {
-                            articleAdapter.addData(it.datas)
-                            loadsir.showSuccess()
-                        }
-                    }
-                } else {
-                    //失败
-                    if (it.isFirst) {
-                        //如果是第一页，则显示错误界面，并提示错误信息
-                        loadsir.showError(it.errMessage)
-                    } else {
-                        recyclerView.loadMoreError(0, it.errMessage)
-                    }
-                }
+                loadArticleListData(it, articleAdapter, loadsir, recyclerView, swipeRefresh)
             })
         }
     }

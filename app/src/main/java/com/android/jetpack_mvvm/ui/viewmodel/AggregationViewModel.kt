@@ -5,37 +5,23 @@ import androidx.lifecycle.ViewModel
 import com.android.base.request
 import com.android.jetpack_mvvm.bean.Article
 import com.android.jetpack_mvvm.bean.CommonListData
-import com.android.jetpack_mvvm.bean.ProjectClassify
 import com.android.jetpack_mvvm.http.apiService
 
-class ProjectViewModel: ViewModel() {
+class AggregationViewModel: ViewModel(){
 
-    //页码 首页数据页码从0开始
-    var pageNo = 0
+    private var pageNo = 0
 
-    var titleData: MutableLiveData<ArrayList<ProjectClassify>> = MutableLiveData()
+    //广场数据
+    var squareData: MutableLiveData<CommonListData<Article>> = MutableLiveData()
 
-    var projectData: MutableLiveData<CommonListData<Article>> = MutableLiveData()
-
-    fun getProjectTitleData() {
-        request(
-            {
-                apiService.getProjecTitle()
-            },
-            {
-                titleData.postValue(it)
-            },
-            {
-
-            }
-        )
-    }
-
-    fun getProjectData(isRefresh: Boolean, cid: Int) {
+    /**
+     * 获取广场数据
+     */
+    fun getSquareData(isRefresh: Boolean) {
         if (isRefresh) {
             pageNo = 0
         }
-        request({ apiService.getProjecDataByType(pageNo, cid) }, {
+        request({ apiService.getSquareData(pageNo) }, {
             //请求成功
             pageNo++
             val listData =
@@ -47,7 +33,7 @@ class ProjectViewModel: ViewModel() {
                     isFirstEmpty = isRefresh && it.isEmpty(),
                     datas = it.datas
                 )
-            projectData.postValue(listData)
+            squareData.value = listData
         }, {
             //请求失败
             val listData =
@@ -57,9 +43,8 @@ class ProjectViewModel: ViewModel() {
                     isRefresh = isRefresh,
                     datas = arrayListOf<Article>()
                 )
-            projectData.postValue(listData)
+            squareData.value = listData
         })
     }
-
 
 }
